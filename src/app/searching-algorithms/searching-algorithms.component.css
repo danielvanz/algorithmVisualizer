@@ -1,0 +1,24 @@
+.chessBoardRow {
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chessBoardTile {
+    box-sizing: border-box;
+    background-color: gray;
+    width: 12.5%;
+    height: 100px;
+}
+
+.blackTile {
+    background-color: #798f5a;
+}
+
+.whiteTile {
+    background-color: #e7e7ce;
+}
+
+.chessBoardOutLineBorder {
+    border:#a3524e solid 4px;
+}

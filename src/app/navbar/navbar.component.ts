@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
+import { AlgorithmsPageComponent } from '../algorithms-page/algorithms-page.component';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+    constructor(private renderer: Renderer2, private el: ElementRef) {}
+
 
 }

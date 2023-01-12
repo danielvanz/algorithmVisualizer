@@ -3,3 +3,9 @@ export interface Algorithm {
     description: string;
     tags: string[];
 }
+
+export interface AlgorithmCategories {
+    type: string;
+    description: string;
+    link: string;
+}

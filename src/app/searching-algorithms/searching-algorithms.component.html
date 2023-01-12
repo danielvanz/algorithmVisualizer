@@ -1,0 +1,13 @@
+<div class="chessBoardOutLineBorder">
+  <div class="chessBoardRow" *ngFor="let row of chessBoard; index as i">
+    <div
+      *ngFor="let tile of row; index as j"
+      [ngClass]="
+        (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)
+          ? 'whiteTile'
+          : 'blackTile'
+      "
+      class="chessBoardTile"
+    ></div>
+  </div>
+</div>
