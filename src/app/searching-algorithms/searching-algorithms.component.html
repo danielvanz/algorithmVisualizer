@@ -1,6 +1,7 @@
 <div class="chessBoardOutLineBorder">
   <div class="chessBoardRow" *ngFor="let row of chessBoard; index as i">
     <div
+      (click)="pressedOnTile(i, j)"
       *ngFor="let tile of row; index as j"
       [ngClass]="
         (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)
@@ -8,6 +9,11 @@
           : 'blackTile'
       "
       class="chessBoardTile"
-    ></div>
+    >
+      <img
+        *ngIf="horseTileIndex.x == j && horseTileIndex.y == i"
+        [src]="horseTile"
+      />
+    </div>
   </div>
 </div>

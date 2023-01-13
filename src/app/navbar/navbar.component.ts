@@ -10,5 +10,4 @@ import { AppComponent } from '../app.component';
 export class NavbarComponent {
     constructor(private renderer: Renderer2, private el: ElementRef) {}
 
-
 }
