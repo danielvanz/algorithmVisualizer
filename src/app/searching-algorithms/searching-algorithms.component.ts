@@ -8,7 +8,6 @@ import { Coordinate } from '../chess-board';
 })
 export class SearchingAlgorithmsComponent {
 
-
     horseTile: string = "../assets/horse.png";
     horseTileIndex: Coordinate = {
       x: -1,
