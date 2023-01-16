@@ -19,6 +19,10 @@
     background-color: #e7e7ce;
 }
 
+.targetTile {
+    background-color: #ff0000;
+}
+
 .chessBoardOutLineBorder {
     border:black solid 4px;
 }

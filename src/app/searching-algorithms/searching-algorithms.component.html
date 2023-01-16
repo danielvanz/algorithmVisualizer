@@ -3,17 +3,14 @@
     <div
       (click)="pressedOnTile(i, j)"
       *ngFor="let tile of row; index as j"
-      [ngClass]="
-        (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)
-          ? 'whiteTile'
-          : 'blackTile'
-      "
+      [ngClass]="{
+        targetTile: chessBoard[i][j] == 2,
+        whiteTile: (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1),
+        blackTile: (i % 2 == 0 && j % 2 == 1) || (i % 2 == 1 && j % 2 == 0)
+      }"
       class="chessBoardTile"
     >
-      <img
-        *ngIf="horseTileIndex.x == j && horseTileIndex.y == i"
-        [src]="horseTile"
-      />
+      <img *ngIf="chessBoard[i][j] == 1" [src]="horseTile" />
     </div>
   </div>
 </div>
@@ -25,5 +22,11 @@
     *ngFor="let image of buttonImages; index as i"
   >
     <img [src]="image" alt="" />
+  </button>
+  <button type="button" class="btn btn-outline-danger" (click)="startGame()">
+    Start game
+  </button>
+  <button type="button" class="btn btn-outline-primary" (click)="resetGame()">
+    Reset
   </button>
 </div>
