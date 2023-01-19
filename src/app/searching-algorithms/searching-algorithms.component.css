@@ -23,6 +23,10 @@
     background-color: #ff0000;
 }
 
+.winTile {
+    background-color: green;
+}
+
 .chessBoardOutLineBorder {
     border:black solid 4px;
 }

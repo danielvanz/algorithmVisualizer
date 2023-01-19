@@ -5,6 +5,7 @@
       *ngFor="let tile of row; index as j"
       [ngClass]="{
         targetTile: chessBoard[i][j] == 2,
+        winTile: chessBoard[i][j] == 3,
         whiteTile: (i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1),
         blackTile: (i % 2 == 0 && j % 2 == 1) || (i % 2 == 1 && j % 2 == 0)
       }"

@@ -5,5 +5,21 @@ import { Injectable } from '@angular/core';
 })
 export class KnightPuzzleService {
 
+
+  chessBoard: number[][] = [
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0]]
+
+
   constructor() { }
+
+  getChessBoard() {
+    return this.chessBoard;
+  }
 }
