@@ -42,6 +42,7 @@ export class SearchingAlgorithmsComponent {
     this.gameStarted = true;
     this.chessBoard[this.horseTileIndices[0].y][this.horseTileIndices[0].x] = 1;
     this.breathFirstSearch();
+    return;
   }
   
   resetGame() {
@@ -100,21 +101,21 @@ export class SearchingAlgorithmsComponent {
     return;
   }
   
-  async addKnights(knight: Coordinate) {
+  addKnights(knight: Coordinate) {
     for (let i = 0; i < this.knightStepsX.length; i++) {
       if (this.isValidStep(knight, this.knightStepsX[i], this.knightStepsY[i])) {
         if (this.checkTargetReached(knight, this.knightStepsX[i], this.knightStepsY[i])) {
           this.targetReached = true;
-          this.chessBoard[knight.x + this.knightStepsX[i]][knight.y + this.knightStepsY[i]] = 3;
+          this.chessBoard[knight.y + this.knightStepsY[i]][knight.x + this.knightStepsX[i]] = 3;
         } else {
-          this.chessBoard[knight.x + this.knightStepsX[i]][knight.y + this.knightStepsY[i]] = 1;
+          this.chessBoard[knight.y + this.knightStepsY[i]][knight.x + this.knightStepsX[i]] = 1;
           let newHorseCoordinate : Coordinate = { x : knight.x + this.knightStepsX[i], y : knight.y + this.knightStepsY[i]};
           this.horseTileIndices.push(newHorseCoordinate)
-          await new Promise(f => setTimeout(f, 1000));
-
+          // await new Promise(f => setTimeout(f, 100));
         }
       }
     }
+    return;
   }
   
   isValidStep(knight: Coordinate, x: number, y: number) {
