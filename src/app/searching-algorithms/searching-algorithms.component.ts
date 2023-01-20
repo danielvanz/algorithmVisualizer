@@ -1,4 +1,4 @@
-import { Component, SkipSelf } from '@angular/core';
+import { Component, SkipSelf, ChangeDetectorRef } from '@angular/core';
 import { Coordinate } from '../chess-board';
 import { KnightPuzzleService } from './knightPuzzleLogic/knight-puzzle.service';
 
@@ -28,7 +28,7 @@ export class SearchingAlgorithmsComponent {
   knightStepsX: number[] = [-2, -2, -1, -1, 1, 1, 2, 2];
   knightStepsY: number[] = [1, -1, 2, -2, 2, -2, 1, -1];
 
-  constructor(@SkipSelf() private knightPuzzleService: KnightPuzzleService) {}
+  constructor(@SkipSelf() private knightPuzzleService: KnightPuzzleService, private changeDector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.chessBoard = this.knightPuzzleService.getChessBoard();
@@ -85,12 +85,12 @@ export class SearchingAlgorithmsComponent {
     }
   }
 
-  breathFirstSearch() {
+  async breathFirstSearch() {
     loop1: while (this.horseTileIndices.length != 0) {
       let iterationSize: number = this.horseTileIndices.length;
       for (let i = 0; i < iterationSize; i++) {
         let currentKnight: Coordinate = this.horseTileIndices.shift()!;
-        this.addKnights(currentKnight);
+        await this.addKnights(currentKnight);
         if (this.targetReached) {
           break loop1;
         }
@@ -101,35 +101,22 @@ export class SearchingAlgorithmsComponent {
     return;
   }
 
-  addKnights(knight: Coordinate) {
+  async addKnights(knight: Coordinate) {
     for (let i = 0; i < this.knightStepsX.length; i++) {
-      if (
-        this.isValidStep(knight, this.knightStepsX[i], this.knightStepsY[i])
-      ) {
-        if (
-          this.checkTargetReached(
-            knight,
-            this.knightStepsX[i],
-            this.knightStepsY[i]
-          )
-        ) {
+      if (this.isValidStep(knight, this.knightStepsX[i], this.knightStepsY[i])) {
+        if (this.checkTargetReached(knight,this.knightStepsX[i],this.knightStepsY[i])) {
           this.targetReached = true;
-          this.chessBoard[knight.y + this.knightStepsY[i]][
-            knight.x + this.knightStepsX[i]
-          ] = 3;
-        } else {
-          this.chessBoard[knight.y + this.knightStepsY[i]][
-            knight.x + this.knightStepsX[i]
-          ] = 1;
-          let newHorseCoordinate: Coordinate = {
-            x: knight.x + this.knightStepsX[i],
-            y: knight.y + this.knightStepsY[i],
-          };
-          this.horseTileIndices.push(newHorseCoordinate);
+          this.chessBoard[knight.y + this.knightStepsY[i]][knight.x + this.knightStepsX[i]] = 3;
+        } else if (this.chessBoard[knight.y + this.knightStepsY[i]][knight.x + this.knightStepsX[i]] == 0) {
+            this.chessBoard[knight.y + this.knightStepsY[i]][knight.x + this.knightStepsX[i]] = 1;
+            await this.timeout(1000);
+            this.horseTileIndices.push({
+              x: knight.x + this.knightStepsX[i],
+              y: knight.y + this.knightStepsY[i],
+            });
+          }
         }
       }
-    }
-    return;
   }
 
   isValidStep(knight: Coordinate, x: number, y: number) {
@@ -143,12 +130,12 @@ export class SearchingAlgorithmsComponent {
 
   checkTargetReached(knight: Coordinate, x: number, y: number) {
     return (
-      knight.x + x === this.targetTileCoordinate.x &&
-      knight.y + y === this.targetTileCoordinate.y
+      knight.x + x == this.targetTileCoordinate.x &&
+      knight.y + y == this.targetTileCoordinate.y
     );
   }
 
-  timeout(ms: number) {
+  async timeout(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
