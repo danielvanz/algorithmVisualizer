@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Algorithm, AlgorithmCategories } from '../algorithm';
 
@@ -20,8 +21,6 @@ export class AlgorithmsPageComponent {
         link: "/searchingAlgorithms",
       }
     ]
-    
-
 
     algorithms: Algorithm[] = [{
       name: "Dijkstra's Algorithm",
@@ -34,4 +33,24 @@ export class AlgorithmsPageComponent {
       tags: ["Paths", "Weights"]
     }]
 
+    //API practice
+    pokemonNames: string[] = [];
+
+    constructor(private httpClient: HttpClient) { }
+
+    // ngOnInit(): void {
+    //   this.httpClient.get("https://pokeapi.co/api/v2/pokemon?limit=100").subscribe((data: any) => {
+    //     this.pokemonNames = data.results.map((result: any) => result.name);
+    //     console.log(this.pokemonNames);
+    //   });
+    // }
+    
+  async ngOnInit(): Promise<void> {
+    const data = await this.httpClient.get("https://pokeapi.co/api/v2/pokemon?limit=100")
+    data.subscribe((data: any) => {console.log(data.results.map((result: { name: any; }) => result.name))});
+
+
+    // this.pokemonNames = data.results.map((result: any) => result.name);
+    // console.log(this.pokemonNames);
+  }
 }

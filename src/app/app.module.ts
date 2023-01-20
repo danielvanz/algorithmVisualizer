@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AlgorithmsPageComponent } from './algorithms-page/algorithms-page.component';
 import { SearchingAlgorithmsComponent } from './searching-algorithms/searching-algorithms.component';
+import { HttpClientModule } from '@angular/common/http';
 
   const routes: Routes = [
     { path: 'algorithms', component: AlgorithmsPageComponent},
@@ -21,7 +22,8 @@ import { SearchingAlgorithmsComponent } from './searching-algorithms/searching-a
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    HttpClientModule,
+    RouterModule.forRoot(routes),
   ],
   exports: [RouterModule],
   providers: [],
